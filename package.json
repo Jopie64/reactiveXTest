@@ -1,0 +1,11 @@
+{
+  "name": "reactivex-test",
+  "version": "1.0.0",
+  "description": "Testing ReactiveX",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Johan 't Hart",
+  "license": "ISC"
+}
