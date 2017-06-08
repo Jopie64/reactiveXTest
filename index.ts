@@ -30,7 +30,7 @@ stream$ = stream$.publishBehavior(-1);
 
 let result1 = [];
 let result2 = [];
-
+/*
 stream$.subscribe(i => {
     i;
     result1.push(i);
@@ -47,6 +47,7 @@ setTimeout(() => {
         result2.push(i);
     });
 }, 250);
+*/
 
 setTimeout(() => {
     capture
@@ -62,7 +63,27 @@ setTimeout(() => {
     logging;
 }, 300);
 
-logging
+logging;
+
+interface Circle {
+    kind: 'circle';
+    radius: number;
+}
+
+interface Square {
+    kind: 'square';
+    sidelength: number;
+}
+
+
+type Shape = Circle | Square;
+
+function surface(shape: Shape): number {
+    switch(shape.kind) {
+        case 'circle': return 3.14 * (shape as Circle).radius * shape.radius;
+        case 'square': return shape.sidelength * shape.sidelength;
+    }
+}
 
 //Observable.return()
 Observable.interval(500)
