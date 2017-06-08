@@ -1,6 +1,16 @@
-let Rx = require('./node_modules/rxjs/rx')
+let Rx = require('rxjs/rx')
 
 //console.log('');
+
+let logging = '';
+
+function log(s) {
+    logging += s + '\n';
+    console.log(s);
+}
+
+log('***');
+log('***');
 
 let capture = 0;
 //let interval$ = Rx.Observable.interval(100);
@@ -12,11 +22,10 @@ let stream2$ = Rx.Observable.create(observer => {
 }).delay(1000);
 
 let stream$ = Rx.Observable
-    .range(0,3)
-    .do(_ => ++capture)
-    .delay(100);
+    .interval(100).take(3)
+    .do(_ => log('Took ' + _));
 
-stream$ = stream$.share();
+stream$ = stream$.publishBehavior(-1);
 
 let result1 = [];
 let result2 = [];
@@ -43,13 +52,15 @@ setTimeout(() => {
     result1
     result2
 
-}, 200);
+}, 150);
 
 setTimeout(() => {
-    capture
-    result1
-    result2
-
+    capture;
+    result1;
+    result2;
+    logging;
 }, 300);
+
+logging
 
 //Rx.Observable.return()
