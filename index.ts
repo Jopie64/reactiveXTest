@@ -1,4 +1,4 @@
-let Rx = require('rxjs/rx')
+import { Observable } from 'rxjs/rx';
 
 //console.log('');
 
@@ -10,18 +10,19 @@ function log(s) {
 }
 
 log('***');
+log('*** Program started ***');
 log('***');
 
 let capture = 0;
-//let interval$ = Rx.Observable.interval(100);
-let stream2$ = Rx.Observable.create(observer => {
+//let interval$ = Observable.interval(100);
+let stream2$ = Observable.create(observer => {
     observer.next(++capture);
     observer.next(++capture);
     observer.next(++capture);
     observer.complete();
 }).delay(1000);
 
-let stream$ = Rx.Observable
+let stream$ = Observable
     .interval(100).take(3)
     .do(_ => log('Took ' + _));
 
@@ -63,4 +64,8 @@ setTimeout(() => {
 
 logging
 
-//Rx.Observable.return()
+//Observable.return()
+Observable.interval(500)
+    .take(5)
+    .map(i => `Bla ${i}`)
+    .subscribe(log);
