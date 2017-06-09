@@ -7,5 +7,10 @@
     "test": "test"
   },
   "author": "Johan 't Hart",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/request": "0.0.43",
+    "request": "^2.81.0",
+    "rxjs": "^5.4.0"
+  }
 }
