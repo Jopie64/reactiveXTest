@@ -22,7 +22,9 @@ function area(shape: Shape): number {
 
 const result = [0,1,2,3,4,5]
 //    .map(i => i % 2 === 0 ? { radius: i } : { sidelength: i })
-    .map((i):Shape => i % 2 === 0 ? { kind: 'circle', radius: i } : { kind: 'square', sidelength: i })
+    .map((i):Shape => i % 2 === 0 ?
+        { kind: 'circle', radius: i } :
+        { kind: 'square', sidelength: i })
     .map(area);
 
 console.log(result);
@@ -40,7 +42,9 @@ Observable.interval(500)
 //    .map(i => i % 2 === 0 ? new CircleImpl(3) : {kind: 'square', sidelength: 4})
 //    .map(i => i % 2 === 0 ? { kind: 'circle', radius: 3 } : { kind: 'square', sidelength: 4 })
 //    .map(i => ({ kind: <'square'>'square', sidelength: 3 }))
-    .map((i):Shape => i % 2 === 0 ? { kind: 'circle', radius: i } : { kind: 'square', sidelength: i })
+    .map((i):Shape => i % 2 === 0 ?
+        { kind: 'circle', radius: i }:
+        { kind: 'square', sidelength: i })
     .map(area)
     .map(i => `Bla ${i}`)
     .subscribe(log);
