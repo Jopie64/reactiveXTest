@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Testing ReactiveX",
   "main": "index.js",
-
   "watch": {
     "test": {
-      "patterns": ["."],
+      "patterns": [
+        "."
+      ],
       "extensions": "ts",
       "quiet": false
     }
@@ -18,9 +19,10 @@
   "author": "Johan 't Hart",
   "license": "ISC",
   "dependencies": {
-    "@types/request": "0.0.43",
+    "@types/request": "0.0.44",
     "request": "^2.81.0",
-    "rxjs": "^5.4.0"
+    "rxjs": "^5.4.0",
+    "web-request": "^1.0.7"
   },
   "devDependencies": {
     "npm-watch": "^0.1.9"

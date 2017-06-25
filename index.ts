@@ -3,4 +3,5 @@ import { log } from './logging';
 //import './factorize';
 //import './patternMatch'
 //import './restCall'
-import './tests';
+//import './tests';
+import './webRequest'
