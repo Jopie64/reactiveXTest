@@ -1,14 +1,14 @@
 import { Observable } from 'rxjs/rx';
 
-export function getFirstNr__(obs: Observable<number>):Promise<number> {
+export function getFirstNr_PlainWrong(obs: Observable<number>):Promise<number> {
     return Promise.resolve(1);
 }
 
-export function getFirstNr_(obs: Observable<number>):Promise<number> {
-    return obs.first().toPromise();
+export function getFirstNr_LastNr(obs: Observable<number>):Promise<number> {
+    return obs.toPromise();
 }
 
-export function getFirstNr(obs: Observable<number>):Promise<number> {
+export function getFirstNr_Naive(obs: Observable<number>):Promise<number> {
     return new Promise((resolve, reject) => {
         const subscription = obs.subscribe(
             value => {
@@ -18,4 +18,9 @@ export function getFirstNr(obs: Observable<number>):Promise<number> {
             error => reject(error),
             () => resolve(undefined));
     });
+}
+
+// The current best implementation
+export function getFirstNr(obs: Observable<number>):Promise<number> {
+    return obs.take(1).toPromise();
 }

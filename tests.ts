@@ -15,7 +15,7 @@ const expect = exp => value => {
 // **** testGetFirstNr1
 
 function testGetFirstNr1() : Promise<boolean> {
-    return getFirstNr(Observable.interval(100))
+    return getFirstNr(Observable.interval(100).take(10))
         .then(expect(0));
 }
 
