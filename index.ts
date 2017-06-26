@@ -5,3 +5,9 @@ import { log } from './logging';
 //import './restCall'
 //import './tests';
 import './webRequest'
+
+
+// Usefull links:
+// https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
+// http://reactivex.io/
+// http://rxmarbles.com/

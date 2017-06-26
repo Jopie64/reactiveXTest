@@ -39,6 +39,11 @@ makeRequest<Post[]>('posts')
     .subscribe(log);
 */
 
+makeRequest<Post[]>('posts')
+    .flatMap(p => Observable.from(p))
+    .scan((acc, value, index) => acc += value.id, 0)
+    .takeLast(3)
+    .subscribe(log);
 
 makeRequest<Post>('posts/1')
     .map(getTitle)
