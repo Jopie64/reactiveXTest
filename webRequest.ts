@@ -41,7 +41,8 @@ makeRequest<Post[]>('posts')
 
 makeRequest<Post[]>('posts')
     .flatMap(p => Observable.from(p))
-    .scan((acc, value, index) => acc += value.id, 0)
+    .pluck<Post,number>('id')
+    .scan((acc, value, index) => acc += value, 0)
     .takeLast(3)
     .subscribe(log);
 
