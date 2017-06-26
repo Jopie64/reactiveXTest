@@ -6,6 +6,10 @@ Toy repo aiming to demonstrate the power of reactive programming
 * Clone this repo
 * `npm install`
 
+Note: typescript is expected to be already installed globally. If it is not, you can do this with:
+
+`npm install -g typescript`
+
 # Run it
 
 Run `npm run watch`
