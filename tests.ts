@@ -12,7 +12,7 @@ const expect = exp => value => {
 }
 
 function testGetFirstNr1() : Promise<boolean> {
-    return getFirstNr(Observable.interval(1000))
+    return getFirstNr(Observable.interval(100))
         .then(expect(0));
 }
 
@@ -21,18 +21,15 @@ function testGetFirstNr2() : Promise<boolean> {
         .then(expect(3));
 }
 
-function testExpectException(obs: Observable<number>): Promise<boolean> {
-    return getFirstNr(obs)
-        .then(v => { log(`Not expecting a value but got ${v}`); return false; })
-        .catch(_ => true); // Expect failure
-}
-
 function testGetFirstNr3(): Promise<boolean> {
-    return testExpectException(Observable.empty());
+    return getFirstNr(Observable.empty())
+        .then(expect(undefined));
 }
 
 function testGetFirstNr4(): Promise<boolean> {
-    return testExpectException(Observable.throw(new Error('Just an error')));
+    return getFirstNr(Observable.throw(new Error('Just an error')))
+        .then(v => { log(`Not expecting a value but got ${v}`); return false; })
+        .catch(_ => true); // Expect failure
 }
 
 const tests = [
