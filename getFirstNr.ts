@@ -5,7 +5,7 @@ export function getFirstNr__(obs: Observable<number>):Promise<number> {
 }
 
 export function getFirstNr_(obs: Observable<number>):Promise<number> {
-    return obs.take(1).toPromise();
+    return obs.first().toPromise();
 }
 
 export function getFirstNr(obs: Observable<number>):Promise<number> {

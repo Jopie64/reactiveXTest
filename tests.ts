@@ -2,14 +2,17 @@ import { Observable } from 'rxjs/rx';
 import { log } from './logging';
 
 import { getFirstNr } from './getFirstNr';
+import { arrayProduct } from './arrayProduct';
 
 const expect = exp => value => {
-    if (exp !== value) {
+    if (JSON.stringify(exp) !== JSON.stringify(value)) {
         console.error(`Expected value to be ${exp}, but it was found to be ${value}`);
         return false;
     }
     return true;
 }
+
+// **** testGetFirstNr1
 
 function testGetFirstNr1() : Promise<boolean> {
     return getFirstNr(Observable.interval(100))
@@ -32,11 +35,32 @@ function testGetFirstNr4(): Promise<boolean> {
         .catch(_ => true); // Expect failure
 }
 
+
+// **** testArrayProduct1
+
+function testArrayProduct1(): Promise<boolean> {
+    return arrayProduct(Observable.from([5,10]), Observable.from([1,2]))
+        .then(expect([5,10,10,20]));
+}
+
+function testArrayProduct2(): Promise<boolean> {
+    return arrayProduct(Observable.from([1,2,3,4]), Observable.from([1,2,3,4]))
+        .then(expect([1,2,3,4,2,4,6,8,3,6,9,12,4,8,12,16]));
+}
+
+function testArrayProduct3(): Promise<boolean> {
+    return arrayProduct(Observable.from([1,2]), Observable.from([10,100,1000]))
+        .then(expect([10,100,1000,20,200,2000]));
+}
+
 const tests = [
     testGetFirstNr1,
     testGetFirstNr2,
     testGetFirstNr3,
-    testGetFirstNr4
+    testGetFirstNr4,
+    testArrayProduct1,
+    testArrayProduct2,
+    testArrayProduct3
 ];
 
 function runTests() {
