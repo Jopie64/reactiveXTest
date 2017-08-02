@@ -3,6 +3,10 @@ import { log } from './logging';
 
 import { getFirstNr } from './getFirstNr';
 import { arrayProduct } from './arrayProduct';
+import { trueIn3Seconds_Promise,
+         trueIn3Seconds_Observable,
+         produce2468,
+         printNewValue } from './reactiveXReplacingPatterns'
 
 const expect = exp => value => {
     if (JSON.stringify(exp) !== JSON.stringify(value)) {
@@ -53,6 +57,23 @@ function testArrayProduct3(): Promise<boolean> {
         .then(expect([10,100,1000,20,200,2000]));
 }
 
+
+function testObsAsPromise1(): Promise<boolean> {
+    return trueIn3Seconds_Promise();
+}
+
+function testObsAsPromise2(): Promise<boolean> {
+    return trueIn3Seconds_Observable();
+}
+
+function testObsAsStream(): Promise<boolean> {
+    return produce2468().then(x => JSON.stringify(x) === "[2,4,6,8]");
+}
+
+function testPrintNewValue(): Promise<boolean> {
+    return printNewValue();
+}
+
 const tests = [
     testGetFirstNr1,
     testGetFirstNr2,
@@ -60,7 +81,11 @@ const tests = [
     testGetFirstNr4,
     testArrayProduct1,
     testArrayProduct2,
-    testArrayProduct3
+    testArrayProduct3,
+    testObsAsPromise1,
+    testObsAsPromise2,
+    testObsAsStream,
+    testPrintNewValue
 ];
 
 function runTests() {
