@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs/rx';
+import { interval } from 'rxjs';
 import { log } from './logging'
+import { take, map } from 'rxjs/operators';
 
 interface Circle {
     kind: 'circle';
@@ -36,17 +37,17 @@ class CircleImpl implements Circle {
 }
 
 //Observable.return()
-Observable.interval(500)
-    .take(6)
+interval(500).pipe(
+    take(6),
 //    .map(i => i % 2 === 0 ? <Circle> { radius: 3 } : {kind: 'square', sidelength: 4})
 //    .map(i => i % 2 === 0 ? new CircleImpl(3) : {kind: 'square', sidelength: 4})
 //    .map(i => i % 2 === 0 ? { kind: 'circle', radius: 3 } : { kind: 'square', sidelength: 4 })
 //    .map(i => ({ kind: <'square'>'square', sidelength: 3 }))
-    .map((i):Shape => i % 2 === 0 ?
+    map((i):Shape => i % 2 === 0 ?
         { kind: 'circle', radius: i }:
-        { kind: 'square', sidelength: i })
-    .map(area)
-    .map(i => `Bla ${i}`)
+        { kind: 'square', sidelength: i }),
+    map(area),
+    map(i => `Bla ${i}`))
     .subscribe(log);
 
 let obj: Shape = { kind: 'circle', radius: 3 };

@@ -1,4 +1,5 @@
-import { Observable, Subject, BehaviorSubject } from 'rxjs/rx';
+import { Observable, from, Subject, BehaviorSubject } from 'rxjs';
+import { map, toArray, take } from 'rxjs/operators';
 
 export function trueIn3Seconds_Promise(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
@@ -23,10 +24,9 @@ export function trueIn3Seconds_Observable(): Promise<boolean> {
 
 export function produce2468(): Promise<number[]> {
     const num = [1,2,3,4];
-    return Observable
-        .from(num)
-        .map(x => x * 2)
-        .toArray()
+    return from(num).pipe(
+        map(x => x * 2),
+        toArray())
         .toPromise();
 }
 
@@ -53,7 +53,7 @@ export function printNewValue():Promise<boolean>
             });
     value.next(3);
     // Output: Value changed to 3
-    return value.asObservable().take(1).map(x => x === 3).toPromise();
+    return value.pipe(take(1), map(x => x === 3)).toPromise();
 }
 
 /*

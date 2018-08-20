@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/rx';
+import { Observable } from 'rxjs';
 import { log } from './logging';
 //import './factorize';
 //import './patternMatch'

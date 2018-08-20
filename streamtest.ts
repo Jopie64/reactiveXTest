@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs/rx';
+import { Observable, interval } from 'rxjs';
 import { log, logging } from './logging'
+import { take, publishBehavior, tap } from 'rxjs/operators';
 
 
 let capture = 0;
@@ -11,11 +12,11 @@ let stream2$ = Observable.create(observer => {
     observer.complete();
 }).delay(1000);
 
-let stream$ = Observable
-    .interval(100).take(3)
-    .do(_ => log('Took ' + _));
+let stream$ = interval(100).pipe(
+    take(3),
+    tap(_ => log('Took ' + _)));
 
-stream$ = stream$.publishBehavior(-1);
+stream$ = stream$.pipe(publishBehavior(-1));
 
 let result1 = [];
 let result2 = [];
@@ -36,7 +37,7 @@ setTimeout(() => {
         result2.push(i);
     });
 }, 250);
-*/
+
 
 setTimeout(() => {
     capture
@@ -53,3 +54,4 @@ setTimeout(() => {
 }, 300);
 
 logging;
+*/

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/rx';
+import { interval, range, empty, from, throwError } from 'rxjs';
 import { log } from './logging';
 
 import { getFirstNr } from './getFirstNr';
@@ -7,6 +7,7 @@ import { trueIn3Seconds_Promise,
          trueIn3Seconds_Observable,
          produce2468,
          printNewValue } from './reactiveXReplacingPatterns'
+import { take, map } from 'rxjs/operators';
 
 const expect = exp => value => {
     if (JSON.stringify(exp) !== JSON.stringify(value)) {
@@ -19,22 +20,22 @@ const expect = exp => value => {
 // **** testGetFirstNr1
 
 function testGetFirstNr1() : Promise<boolean> {
-    return getFirstNr(Observable.interval(100).take(10))
+    return getFirstNr(interval(100).pipe(take(10)))
         .then(expect(0));
 }
 
 function testGetFirstNr2() : Promise<boolean> {
-    return getFirstNr(Observable.range(3,10))
+    return getFirstNr(range(3,10))
         .then(expect(3));
 }
 
 function testGetFirstNr3(): Promise<boolean> {
-    return getFirstNr(Observable.empty())
+    return getFirstNr(empty())
         .then(expect(undefined));
 }
 
 function testGetFirstNr4(): Promise<boolean> {
-    return getFirstNr(Observable.throw(new Error('Just an error')))
+    return getFirstNr(throwError(new Error('Just an error')))
         .then(v => { log(`Not expecting a value but got ${v}`); return false; })
         .catch(_ => true); // Expect failure
 }
@@ -43,17 +44,17 @@ function testGetFirstNr4(): Promise<boolean> {
 // **** testArrayProduct1
 
 function testArrayProduct1(): Promise<boolean> {
-    return arrayProduct(Observable.from([5,10]), Observable.from([1,2]))
+    return arrayProduct(from([5,10]), from([1,2]))
         .then(expect([5,10,10,20]));
 }
 
 function testArrayProduct2(): Promise<boolean> {
-    return arrayProduct(Observable.from([1,2,3,4]), Observable.from([1,2,3,4]))
+    return arrayProduct(from([1,2,3,4]), from([1,2,3,4]))
         .then(expect([1,2,3,4,2,4,6,8,3,6,9,12,4,8,12,16]));
 }
 
 function testArrayProduct3(): Promise<boolean> {
-    return arrayProduct(Observable.from([1,2]), Observable.from([10,100,1000]))
+    return arrayProduct(from([1,2]), from([10,100,1000]))
         .then(expect([10,100,1000,20,200,2000]));
 }
 

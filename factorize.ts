@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs/rx';
-import { log, logging } from './logging'
+import { from } from 'rxjs';
+import { log } from './logging'
+import { map } from 'rxjs/operators';
 
 function factorize(n: number):number[]{
     for (let x = 2; x < Math.sqrt(n); ++x) {
@@ -12,8 +13,8 @@ function factorize(n: number):number[]{
 
 const toFactorize = [91,137,150,154];
 log(`Factorize ${toFactorize}`)
-Observable.from(toFactorize)
+from(toFactorize).pipe(
 //Observable.range(1,100)
 //    .map(x => Math.sqrt(x))
-    .map(i => ({i:i,f:factorize(i)}))
+    map(i => ({i:i,f:factorize(i)})))
     .subscribe(log);

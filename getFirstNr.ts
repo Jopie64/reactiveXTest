@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/rx';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 export function getFirstNr_PlainWrong(obs: Observable<number>):Promise<number> {
     return Promise.resolve(1);
@@ -22,5 +23,5 @@ export function getFirstNr_Naive(obs: Observable<number>):Promise<number> {
 
 // The current best implementation
 export function getFirstNr(obs: Observable<number>):Promise<number> {
-    return obs.take(1).toPromise();
+    return obs.pipe(take(1)).toPromise();
 }
